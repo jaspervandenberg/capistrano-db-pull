@@ -8,7 +8,7 @@ namespace :db do
       if remote.postgresql? && local.postgresql?
         execute "pg_dump --no-owner #{remote.database} -Z 9 > #{fetch(:application)}.sql.gz"
       elsif remote.postgresql? && local.sqlite3?
-        execute "pg_dump --data-only --exclude-table=schema_migrations --column-inserts #{remote.database} | gzip -9 > #{fetch(:application)}.sql.gz"
+        execute "pg_dump --data-only --exclude-table=schema_migrations --column-inserts #{remote.database} -Z 9 > #{fetch(:application)}.sql.gz"
       elsif remote.mysql?
         execute "mysqldump --skip-opt --no-create-info #{remote.database} | gzip -9 > #{fetch(:application)}.sql.gz"
       else
